@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\ch.1"
+    "\\ch.1",
+    "\\ch.2"
   ],
-  "SelectedNode": "\\ch.1\\TempConversion.c",
+  "SelectedNode": "\\ch.1\\charCount.c",
   "PreviewInSolutionExplorer": false
 }

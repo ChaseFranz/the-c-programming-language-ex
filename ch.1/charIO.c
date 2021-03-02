@@ -5,10 +5,11 @@ int main()
     int c;
 
     printf("Enter character(s):");    
+
     while((c = getchar()) != EOF)
     {
         putchar(c);
     }
-
+    
     return 0;
 }
