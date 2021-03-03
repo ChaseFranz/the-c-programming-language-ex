@@ -21,10 +21,10 @@ int main()
    printf("Size of long max: %ld\n", LONG_MAX);
 
 	// unasigned
-   printf("Size of unsigned char: %ld\n", UCHAR_MAX);
-   printf("Size of unsigned short: %ld\n", USHRT_MAX);
-   printf("Size of unsigned int: %ld\n", UINT_MAX);
-   printf("Size of unsigned long: %ld\n", ULONG_MAX);
+   printf("Size of unsigned char: %u\n", UCHAR_MAX);
+   printf("Size of unsigned short: %u\n", USHRT_MAX);
+   printf("Size of unsigned int: %lu\n", UINT_MAX);
+   printf("Size of unsigned long: %u\n", ULONG_MAX);
    
    return 0;
 }
