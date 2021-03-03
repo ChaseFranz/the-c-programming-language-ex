@@ -1,0 +1,124 @@
+/* These two header files are only needed for the test driver */
+#include <stdio.h>
+#include <stdlib.h>
+
+
+/* Write the function htoi(s), which converts a string of hexadecimal
+ * digits (including an optional 0x or 0X) into its equivalent integer
+ * value. The allowable digits are 0 through 9, a through f, and
+ * A through F.
+ */
+
+
+int main(void)
+{
+    char *endp = NULL;
+    char *test[] = 
+    {
+        "F00",
+        "bar",
+        "0100",
+        "0x1",
+        "0XA",
+        "0X0C0BE",
+        "abcdef",
+        "123456",
+        "0x123456",
+        "deadbeef",
+        "zog_c"
+    };
+
+    unsigned int result;
+    unsigned int check;
+
+    size_t numtests = sizeof test / sizeof test[0];
+    size_t thistest;
+
+    for (thistest = 0; thistest < numtests; thistest++)
+    {
+        result = htoi(test[thistest]);
+        check = (unsigned int) strtoul(test[thistest], &endp, 16);
+
+        if((*endp != '\0' && result == 0) || result == check)
+        {
+            printf("Testing %s. Correct. %u\n", test[thistest], result);
+        }
+        else
+        {
+            printf("Testing %s. Incorrect. %u\n", test[thistest], result);
+        }
+    }
+
+    return 0;
+}
+
+
+/* Here's a helper function to get me around the problem of not
+ * having strchr
+ */
+int hexalpha_to_int(int c)
+{
+    char hexalpha[] = "aAbBcCdDeEfF";
+    int i;
+    int answer = 0;
+
+    // converts aA-fF to numerical value (base 10)
+    for (i=0; answer == 0 && hexalpha[i] != '\0'; i++)
+    {
+        if (hexalpha[i] == c)
+        {
+            answer = 10 + (i/2);
+        }
+    }
+
+    return answer;
+}
+
+unsigned int htoi(const char s[])
+{
+    unsigned int answer = 0;
+    int i = 0;
+    int valid = 1;
+    int hexit;
+
+    // skip the <0x,0X> format on HEX numbers
+    if (s[i] == '0')
+    {
+        ++i;
+        if (s[i] == 'x' || s[i] == 'X')
+        {
+            ++i;
+        }
+    }
+
+
+    while (valid && s[i] != '\0')
+    {
+        answer = answer * 16;
+        if (s[i] >= '0' && s[i] <= '9')
+        {
+            // Get numerical representation of char value
+            answer = answer + (s[i] - '0');
+        }
+        else
+        {
+            hexit = hexalpha_to_int(s[i]);
+            if (hexit == 0)
+            {
+                valid = 0;
+            }
+            else
+            {
+                answer = answer + hexit;
+            }
+        }
+        ++i;
+    }
+
+    if (!valid)
+    {
+        answer = 0;
+    }
+
+    return answer;
+}
